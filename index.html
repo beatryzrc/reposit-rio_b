@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Horas Extras - Detalhado</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
         body {
@@ -127,10 +126,6 @@
             padding-top: 15px;
         }
 
-        .chart-section {
-            margin: 50px 0;
-        }
-
         .total-section {
             background-color: #06402b;
             border-radius: 10px;
@@ -145,7 +140,7 @@
             color: #ffffff;
             margin: 0 0 20px 0;
         }
-
+        
         .total-valor-mes {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -154,7 +149,7 @@
             text-align: left;
             padding: 0 20px;
         }
-
+        
         .total-mes-item {
             display: flex;
             justify-content: space-between;
@@ -177,7 +172,7 @@
             border-top: 2px solid #ffffff;
             margin: 30px 0;
         }
-
+        
         .total-value {
             font-size: 2.8em;
             font-weight: 900;
@@ -190,6 +185,59 @@
             font-weight: 500;
             color: #e9ecef;
         }
+
+        /* --- Estilos para o Gráfico de Barras --- */
+        .chart-section {
+            margin-top: 50px;
+            padding: 20px 0;
+        }
+
+        .chart-section h2 {
+            font-weight: 700;
+            color: #06402b;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-label {
+            font-weight: 500;
+            font-size: 0.9em;
+            color: #495057;
+            width: 150px; /* Largura fixa para os rótulos */
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .bar-body {
+            background-color: #28a745;
+            height: 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bar-value {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85em;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -199,59 +247,258 @@
     <p class="header-subtitle">Análise de Custos de Horas Extras por Gestor</p>
     <div class="divider"></div>
 
-    <!-- Gráfico Ranking -->
-    <div class="chart-section">
-        <canvas id="rankingChart"></canvas>
-    </div>
-
-    <!-- Cards reorganizados por valor total -->
-    <div class="card-grid">
-
-        <div class="gestor-card">
+    <div class="card-grid" id="gestor-cards-container">
+        <div class="gestor-card" data-total="76855.27">
             <div class="gestor-name">SERLIENE TELES</div>
+            <ul class="subcategoria-list">
+                <h4>ONCOLOGIA - CLINICA CIRURGICA</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 8.250,18</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 3.469,39</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 6.293,35</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 3.466,85</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 5.938,26</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 5.881,28</div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 14.450,17</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 18.990,82</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 10.114,97</div>
+                <div class="total-setor">Total do Setor: R$ 76.855,27</div>
+            </ul>
             <div class="total-gestor">Total Geral: R$ 76.855,27</div>
         </div>
 
-        <div class="gestor-card">
+        <div class="gestor-card" data-total="46718.66">
             <div class="gestor-name">FABRICIA ZUCOLOTO</div>
+            <ul class="subcategoria-list">
+                <h4>UTI GERAL</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 2.410,02</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 2.001,81</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 5.902,23</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 18,97</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.920,05</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 9.947,05</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 8.871,84</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 9.838,09</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 5.798,60</div>
+                <div class="total-setor">Total do Setor: R$ 46.718,66</div>
+            </ul>
             <div class="total-gestor">Total Geral: R$ 46.718,66</div>
         </div>
+        
+        <div class="gestor-card" data-total="44615.46">
+            <div class="gestor-name">VALDELICE BENACHI</div>
+            <ul class="subcategoria-list">
+                <h4>LINHA CARDIOLOGICA</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 4.494,50</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 4.318,60</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 5.837,43</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 8.402,04</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 6.393,31</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 7.883,67</div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 5.276,66</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 270,11</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.215,77</span></div>
+                <div class="total-setor">Total do Setor: R$ 44.092,09</div>
+            </ul>
+            <ul class="subcategoria-list">
+                <h4>HEMODINAMICA</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 8,11</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 3.440,83</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 2.296,79</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 73,42</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.196,16</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 1.189,19</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 1.905,07</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 2.022,91</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.990,39</span></div>
+                <div class="total-setor">Total do Setor: R$ 14.122,37</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 44.615,46</div>
+        </div>
 
-        <div class="gestor-card">
+        <div class="gestor-card" data-total="44173.30">
             <div class="gestor-name">EDUARDO BAZZAN</div>
+            <ul class="subcategoria-list">
+                <h4>RADIOLOGIA E IMAGEM</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 5.960,79</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 3.843,57</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 6.473,76</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 3.081,75</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 6.605,94</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 2.892,39</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 4.189,18</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 6.616,86</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 4.509,06</span></div>
+                <div class="total-setor">Total do Setor: R$ 44.173,30</div>
+            </ul>
             <div class="total-gestor">Total Geral: R$ 44.173,30</div>
         </div>
-
-        <div class="gestor-card">
-            <div class="gestor-name">VALDELICE BENACHI</div>
-            <div class="total-gestor">Total Geral: R$ 58.214,46</div>
+        
+        <div class="gestor-card" data-total="10630.27">
+            <div class="gestor-name">TATIANNE BADKE</div>
+            <ul class="subcategoria-list">
+                <h4>PAUV / SADT</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 1.198,31</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 1.425,63</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 1.384,88</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 329,12</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 2.114,00</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 556,38</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 870,57</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 751,08</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 2.000,30</div>
+                <div class="total-setor">Total do Setor: R$ 10.630,27</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 10.630,27</div>
         </div>
 
-        <div class="gestor-card">
+        <div class="gestor-card" data-total="8394.44">
+            <div class="gestor-name">PRISCILLA RAMOS RIBEIRO</div>
+            <ul class="subcategoria-list">
+                <h4>CENTRO CIRURGICO - ADM 20%</h4>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 853,92</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 327,97</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 785,43</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 959,62</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 1.213,01</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 2.118,99</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 2.135,50</div>
+                <div class="total-setor">Total do Setor: R$ 8.394,44</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 8.394,44</div>
+        </div>
+        
+        <div class="gestor-card" data-total="8258.31">
+            <div class="gestor-name">LORENY DENICOLA</div>
+            <ul class="subcategoria-list">
+                <h4>PEDIATRIA</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 1.996,08</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 1.613,90</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.132,67</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 840,43</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 1.056,02</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.619,21</div>
+                <div class="total-setor">Total do Setor: R$ 8.258,31</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 8.258,31</div>
+        </div>
+
+        <div class="gestor-card" data-total="6466.90">
             <div class="gestor-name">ELIZANGELA LEPAUS</div>
+            <ul class="subcategoria-list">
+                <h4>FISIO E FONO</h4>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 1.134,54</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 89,18</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 7,14</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.517,73</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 1.153,88</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 62,50</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 449,74</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 2.052,19</span></div>
+                <div class="total-setor">Total do Setor: R$ 6.466,90</div>
+            </ul>
             <div class="total-gestor">Total Geral: R$ 6.466,90</div>
         </div>
 
-        <!-- Demais gestores seguem a ordem -->
-
+        <div class="gestor-card" data-total="4149.15">
+            <div class="gestor-name">MARIA DO SOCORRO LOPES</div>
+            <ul class="subcategoria-list">
+                <h4>GESTAO DE MATERIAIS/OPME</h4>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 264,07</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 388,12</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 821,73</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 1.056,02</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.619,21</div>
+                <div class="total-setor">Total do Setor: R$ 4.149,15</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 4.149,15</div>
+        </div>
+        
+        <div class="gestor-card" data-total="2515.38">
+            <div class="gestor-name">LARISSA BRAVIM</div>
+            <ul class="subcategoria-list">
+                <h4>PRONTO ATENDIMENTO ADULTO</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 10,95</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 526,60</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 15,80</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 22,15</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.939,88</span></div>
+                <div class="total-setor">Total do Setor: R$ 2.515,38</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 2.515,38</div>
+        </div>
+        
+        <div class="gestor-card" data-total="1406.29">
+            <div class="gestor-name">CAROLINA GRIGIO</div>
+            <ul class="subcategoria-list">
+                <h4>EQUIPE MULTI</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 5,62</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 471,51</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 10,61</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 697,69</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 220,86</span></div>
+                <div class="total-setor">Total do Setor: R$ 1.406,29</div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 1.406,29</div>
+        </div>
+        
+        <div class="gestor-card" data-total="1181.89">
+            <div class="gestor-name">MATERNIDADE</div>
+            <ul class="subcategoria-list">
+                <h4>(JANEIRO - ABRIL)</h4>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 853,92</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 327,97</span></div>
+                <div class="total-setor">Total do Setor: R$ 1.181,89 </div>
+            </ul>
+            <div class="total-gestor">Total Geral: R$ 1.181,89 </div>
+        </div>
     </div>
+
+    <div class="chart-section" id="chart-container">
+        </div>
 
     <div class="total-section">
         <h2>Valor Total Por Mês</h2>
         <div class="total-valor-mes">
-            <div class="total-mes-item"><span class="mes">JAN/25:</span><span class="valor">R$ 37.402,82</span></div>
-            <div class="total-mes-item"><span class="mes">JUN/25:</span><span class="valor">R$ 34.756,75</span></div>
-            <div class="total-mes-item"><span class="mes">FEV/25:</span><span class="valor">R$ 26.275,41</span></div>
-            <div class="total-mes-item"><span class="mes">JUL/25:</span><span class="valor">R$ 52.235,00</span></div>
-            <div class="total-mes-item"><span class="mes">MAR/25:</span><span class="valor">R$ 28.772,65</span></div>
-            <div class="total-mes-item"><span class="mes">AGO/25:</span><span class="valor">R$ 54.019,72</span></div>
-            <div class="total-mes-item"><span class="mes">ABR/25:</span><span class="valor">R$ 25.832,61</span></div>
-            <div class="total-mes-item"><span class="mes">SET/25:</span><span class="valor">R$ 44.455,49</span></div>
-            <div class="total-mes-item"><span class="mes">MAI/25:</span><span class="valor">R$ 28.772,62</span></div>
+            <div class="total-mes-item">
+                <span class="mes">JAN/25:</span>
+                <span class="valor">R$ 37.402,82</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">JUN/25:</span>
+                <span class="valor">R$ 34.756,75</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">FEV/25:</span>
+                <span class="valor">R$ 26.275,41</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">JUL/25:</span>
+                <span class="valor">R$ 52.235,00</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">MAR/25:</span>
+                <span class="valor">R$ 28.772,65</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">AGO/25:</span>
+                <span class="valor">R$ 54.019,72</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">ABR/25:</span>
+                <span class="valor">R$ 25.832,61</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">SET/25:</span>
+                <span class="valor">R$ 44.455,49</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">MAI/25:</span>
+                <span class="valor">R$ 28.772,62</span>
+            </div>
         </div>
 
         <div class="final-total-line"></div>
-
+        
         <div class="total-value">
             <span>VALOR TOTAL GERAL</span><br>
             R$ 351.518,74
@@ -260,41 +507,74 @@
 </div>
 
 <script>
-    const ctx = document.getElementById('rankingChart');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [
-                'Serliene Teles',
-                'Fabricia Zucoloto',
-                'Eduardo Bazzan',
-                'Valdelice Benachi',
-                'Elizangela Lepaus'
-            ],
-            datasets: [{
-                label: 'Total Geral (R$)',
-                data: [76855.27, 46718.66, 44173.30, 58214.46, 6466.90],
-                backgroundColor: '#28a745'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return 'R$ ' + context.raw.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. Mover a seção "Hemodinâmica" e atualizar o total de Valdelice ---
+        const gestorValdelice = document.querySelector('[data-total="44615.46"]');
+        const gestorElizangela = document.querySelector('[data-total="6466.90"]');
+
+        const hemodinamicaHTML = `
+            <ul class="subcategoria-list">
+                <h4>HEMODINAMICA</h4>
+                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 8,11</span></div>
+                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 3.440,83</span></div>
+                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 2.296,79</span></div>
+                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 73,42</span></div>
+                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.196,16</span></div>
+                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 1.189,19</span></div>
+                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 1.905,07</span></div>
+                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 2.022,91</span></div>
+                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.990,39</span></div>
+                <div class="total-setor">Total do Setor: R$ 14.122,37</div>
+            </ul>
+        `;
+        gestorValdelice.insertAdjacentHTML('beforeend', hemodinamicaHTML);
+
+        // Remover a seção de "Hemodinâmica" de Elizangela
+        // A remoção não é necessária se o HTML já estiver organizado como no código acima.
+
+        // --- 2. Reorganizar os cartões por valor total (já feito manualmente no HTML para facilitar) ---
+        const container = document.getElementById('gestor-cards-container');
+        const gestorCards = Array.from(container.querySelectorAll('.gestor-card'));
+
+        gestorCards.sort((a, b) => {
+            const totalA = parseFloat(a.dataset.total);
+            const totalB = parseFloat(b.dataset.total);
+            return totalB - totalA;
+        });
+
+        gestorCards.forEach(card => container.appendChild(card));
+
+        // --- 3. Gerar o gráfico de barras dinamicamente ---
+        const chartContainer = document.getElementById('chart-container');
+        const gestorData = gestorCards.map(card => {
+            return {
+                name: card.querySelector('.gestor-name').textContent,
+                value: parseFloat(card.dataset.total)
+            };
+        });
+
+        const maxValue = Math.max(...gestorData.map(d => d.value));
+
+        let chartHtml = `
+            <div class="chart-section">
+                <h2>Ranking de Custos de Horas Extras por Gestor</h2>
+                <div class="chart-wrapper">
+        `;
+
+        gestorData.forEach(item => {
+            const barWidth = (item.value / maxValue) * 100;
+            const formattedValue = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value);
+            chartHtml += `
+                <div class="bar-item">
+                    <span class="bar-label">${item.name}</span>
+                    <div class="bar-body" style="width: ${barWidth.toFixed(2)}%;">
+                        <span class="bar-value">${formattedValue}</span>
+                    </div>
+                </div>
+            `;
+        });
+        chartHtml += `</div></div>`;
+        chartContainer.innerHTML = chartHtml;
     });
 </script>
 
