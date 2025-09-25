@@ -141,38 +141,6 @@
             margin: 0 0 20px 0;
         }
         
-        .total-valor-mes {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px 40px;
-            font-size: 1em;
-            text-align: left;
-            padding: 0 20px;
-        }
-        
-        .total-mes-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-mes-item .mes {
-            font-weight: 600;
-            color: #ffffff;
-            text-transform: uppercase;
-        }
-
-        .total-mes-item .valor {
-            font-weight: 700;
-            color: #a0d9b1;
-            font-size: 1.2em;
-        }
-
-        .final-total-line {
-            border-top: 2px solid #ffffff;
-            margin: 30px 0;
-        }
-        
         .total-value {
             font-size: 2.8em;
             font-weight: 900;
@@ -186,7 +154,7 @@
             color: #e9ecef;
         }
 
-        /* --- Estilos para o Gráfico de Barras --- */
+        /* --- Estilos para o Novo Gráfico de Barras --- */
         .chart-section {
             margin-top: 50px;
             padding: 20px 0;
@@ -203,72 +171,55 @@
         .chart-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px; /* Espaçamento maior entre as barras */
+            padding: 0 20px;
         }
 
         .bar-item {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
 
         .bar-label {
-            font-weight: 500;
-            font-size: 0.9em;
-            color: #495057;
-            min-width: 150px;
-            text-align: right;
-            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 1em;
+            color: #343a40;
+            position: relative;
+            left: 10px;
+            z-index: 2;
+        }
+        
+        .bar-container {
+            width: 100%;
+            height: 35px; /* Altura maior para a barra */
+            background-color: #e9ecef; /* Cor de fundo da barra */
+            border-radius: 8px;
+            position: relative;
         }
 
-        .bar-body-container {
-            flex-grow: 1;
-        }
-
-        .bar-body {
+        .bar {
+            height: 100%;
             background-color: #28a745;
-            height: 25px;
-            border-radius: 5px;
+            border-radius: 8px;
+            position: relative;
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Alinha o valor à direita */
-            padding: 0 10px;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s ease-out; /* Adiciona uma transição suave para as barras */
+            padding: 0 15px;
+            transition: width 0.8s ease-out;
         }
 
         .bar-value {
-            color: #ffffff;
+            color: #fff;
             font-weight: 700;
-            font-size: 0.85em;
-            white-space: nowrap;
-            opacity: 0; /* Oculta o valor por padrão */
-            transition: opacity 0.3s ease;
-        }
-
-        .bar-body:hover .bar-value {
-            opacity: 1; /* Exibe o valor ao passar o mouse */
-        }
-        
-        .bar-tooltip {
+            font-size: 1em;
             position: absolute;
-            background-color: #06402b;
-            color: #ffffff;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            z-index: 10;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            pointer-events: none; /* Garante que o tooltip não bloqueie o mouse */
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .bar-body-container:hover .bar-tooltip {
-            opacity: 1;
         }
     </style>
 </head>
@@ -298,7 +249,7 @@
             <div class="total-gestor">Total Geral: R$ 76.855,27</div>
         </div>
 
-        <div class="gestor-card" data-total="46718.66">
+        <div class="gestor-card" data-total="46708.66">
             <div class="gestor-name">FABRICIA ZUCOLOTO</div>
             <ul class="subcategoria-list">
                 <h4>UTI GERAL</h4>
@@ -311,12 +262,12 @@
                 <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 8.871,84</span></div>
                 <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 9.838,09</span></div>
                 <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 5.798,60</div>
-                <div class="total-setor">Total do Setor: R$ 46.718,66</div>
+                <div class="total-setor">Total do Setor: R$ 46.708,66</div>
             </ul>
-            <div class="total-gestor">Total Geral: R$ 46.718,66</div>
+            <div class="total-gestor">Total Geral: R$ 46.708,66</div>
         </div>
         
-        <div class="gestor-card" data-total="44615.46">
+        <div class="gestor-card" data-total="58214.46">
             <div class="gestor-name">VALDELICE BENACHI</div>
             <ul class="subcategoria-list">
                 <h4>LINHA CARDIOLOGICA</h4>
@@ -344,7 +295,7 @@
                 <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.990,39</span></div>
                 <div class="total-setor">Total do Setor: R$ 14.122,37</div>
             </ul>
-            <div class="total-gestor">Total Geral: R$ 44.615,46</div>
+            <div class="total-gestor">Total Geral: R$ 58.214,46</div>
         </div>
 
         <div class="gestor-card" data-total="44173.30">
@@ -489,51 +440,9 @@
         </div>
 
     <div class="total-section">
-        <h2>Valor Total Por Mês</h2>
-        <div class="total-valor-mes">
-            <div class="total-mes-item">
-                <span class="mes">JAN/25:</span>
-                <span class="valor">R$ 37.402,82</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">JUN/25:</span>
-                <span class="valor">R$ 34.756,75</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">FEV/25:</span>
-                <span class="valor">R$ 26.275,41</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">JUL/25:</span>
-                <span class="valor">R$ 52.235,00</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">MAR/25:</span>
-                <span class="valor">R$ 28.772,65</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">AGO/25:</span>
-                <span class="valor">R$ 54.019,72</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">ABR/25:</span>
-                <span class="valor">R$ 25.832,61</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">SET/25:</span>
-                <span class="valor">R$ 44.455,49</span>
-            </div>
-            <div class="total-mes-item">
-                <span class="mes">MAI/25:</span>
-                <span class="valor">R$ 28.772,62</span>
-            </div>
-        </div>
-
-        <div class="final-total-line"></div>
-        
+        <h2>Valor Total Geral</h2>
         <div class="total-value">
-            <span>VALOR TOTAL GERAL</span><br>
-            R$ 351.518,74
+            R$ 268.954,32
         </div>
     </div>
 </div>
@@ -576,11 +485,10 @@
             chartHtml += `
                 <div class="bar-item">
                     <span class="bar-label">${item.name}</span>
-                    <div class="bar-body-container">
-                        <div class="bar-body" style="width: ${barWidth.toFixed(2)}%;">
+                    <div class="bar-container">
+                        <div class="bar" style="width: ${barWidth.toFixed(2)}%;">
                             <span class="bar-value">${formattedValue}</span>
                         </div>
-                        <span class="bar-tooltip">${item.name}: ${formattedValue}</span>
                     </div>
                 </div>
             `;
