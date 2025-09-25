@@ -130,7 +130,7 @@
             background-color: #06402b;
             border-radius: 10px;
             padding: 30px;
-            margin-top: 50px;
+            margin-top: 30px; 
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
@@ -139,6 +139,38 @@
             font-size: 2em;
             color: #ffffff;
             margin: 0 0 20px 0;
+        }
+        
+        .total-valor-mes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px 40px;
+            font-size: 1em;
+            text-align: left;
+            padding: 0 20px;
+        }
+        
+        .total-mes-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-mes-item .mes {
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .total-mes-item .valor {
+            font-weight: 700;
+            color: #a0d9b1;
+            font-size: 1.2em;
+        }
+
+        .final-total-line {
+            border-top: 2px solid #ffffff;
+            margin: 30px 0;
         }
         
         .total-value {
@@ -154,9 +186,9 @@
             color: #e9ecef;
         }
 
-        /* --- Estilos para o Novo Gráfico de Barras --- */
+        /* --- Estilos para o Gráfico de Barras --- */
         .chart-section {
-            margin-top: 50px;
+            margin-top: 30px; 
             padding: 20px 0;
         }
 
@@ -171,7 +203,7 @@
         .chart-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 25px; /* Espaçamento maior entre as barras */
+            gap: 15px;
             padding: 0 20px;
         }
 
@@ -193,8 +225,8 @@
         
         .bar-container {
             width: 100%;
-            height: 35px; /* Altura maior para a barra */
-            background-color: #e9ecef; /* Cor de fundo da barra */
+            height: 35px;
+            background-color: #e9ecef;
             border-radius: 8px;
             position: relative;
         }
@@ -206,10 +238,9 @@
             position: relative;
             display: flex;
             align-items: center;
-            padding: 0 15px;
             transition: width 0.8s ease-out;
         }
-
+        
         .bar-value {
             color: #fff;
             font-weight: 700;
@@ -220,6 +251,14 @@
             transform: translateY(-50%);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
+        }
+
+        /* Classes para alinhar os valores de barras menores */
+        .bar-value-outside {
+            color: #000;
+            right: -10px;
+            transform: translate(100%, -50%);
+            text-shadow: none;
         }
     </style>
 </head>
@@ -334,22 +373,6 @@
             <div class="total-gestor">Total Geral: R$ 10.630,27</div>
         </div>
 
-        <div class="gestor-card" data-total="8394.44">
-            <div class="gestor-name">PRISCILLA RAMOS RIBEIRO</div>
-            <ul class="subcategoria-list">
-                <h4>CENTRO CIRURGICO - ADM 20%</h4>
-                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 853,92</span></div>
-                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 327,97</span></div>
-                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 785,43</span></div>
-                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 959,62</span></div>
-                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 1.213,01</span></div>
-                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 2.118,99</span></div>
-                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 2.135,50</div>
-                <div class="total-setor">Total do Setor: R$ 8.394,44</div>
-            </ul>
-            <div class="total-gestor">Total Geral: R$ 8.394,44</div>
-        </div>
-        
         <div class="gestor-card" data-total="8258.31">
             <div class="gestor-name">LORENY DENICOLA</div>
             <ul class="subcategoria-list">
@@ -440,9 +463,51 @@
         </div>
 
     <div class="total-section">
-        <h2>Valor Total Geral</h2>
+        <h2>Valor Total Por Mês</h2>
+        <div class="total-valor-mes">
+            <div class="total-mes-item">
+                <span class="mes">JAN/25:</span>
+                <span class="valor">R$ 37.402,82</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">JUN/25:</span>
+                <span class="valor">R$ 33.797,13</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">FEV/25:</span>
+                <span class="valor">R$ 25.421,49</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">JUL/25:</span>
+                <span class="valor">R$ 51.021,99</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">MAR/25:</span>
+                <span class="valor">R$ 28.772,65</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">AGO/25:</span>
+                <span class="valor">R$ 51.900,73</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">ABR/25:</span>
+                <span class="valor">R$ 25.504,64</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">SET/25:</span>
+                <span class="valor">R$ 42.319,99</span>
+            </div>
+            <div class="total-mes-item">
+                <span class="mes">MAI/25:</span>
+                <span class="valor">R$ 27.987,19</span>
+            </div>
+        </div>
+
+        <div class="final-total-line"></div>
+        
         <div class="total-value">
-            R$ 268.954,32
+            <span>VALOR TOTAL GERAL</span><br>
+            R$ 260.559,88
         </div>
     </div>
 </div>
@@ -471,6 +536,7 @@
         });
 
         const maxValue = Math.max(...gestorData.map(d => d.value));
+        const limitValueInside = maxValue * 0.2; // Exibe o valor dentro da barra se for maior que 20% do valor máximo
 
         let chartHtml = `
             <div class="chart-section">
@@ -481,13 +547,16 @@
         gestorData.forEach(item => {
             const barWidth = (item.value / maxValue) * 100;
             const formattedValue = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value);
-            
+            const displayInside = barWidth > 25; 
+            const valueClass = displayInside ? '' : 'bar-value-outside';
+            const valuePositionStyle = displayInside ? '' : `style="left: ${barWidth.toFixed(2)}%;"`;
+
             chartHtml += `
                 <div class="bar-item">
                     <span class="bar-label">${item.name}</span>
                     <div class="bar-container">
                         <div class="bar" style="width: ${barWidth.toFixed(2)}%;">
-                            <span class="bar-value">${formattedValue}</span>
+                            <span class="bar-value ${valueClass}" ${valuePositionStyle}>${formattedValue}</span>
                         </div>
                     </div>
                 </div>
