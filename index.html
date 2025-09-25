@@ -216,9 +216,13 @@
             font-weight: 500;
             font-size: 0.9em;
             color: #495057;
-            width: 150px; /* Largura fixa para os rótulos */
+            min-width: 150px;
             text-align: right;
             flex-shrink: 0;
+        }
+
+        .bar-body-container {
+            flex-grow: 1;
         }
 
         .bar-body {
@@ -227,9 +231,11 @@
             border-radius: 5px;
             display: flex;
             align-items: center;
-            padding-left: 10px;
+            justify-content: flex-end; /* Alinha o valor à direita */
+            padding: 0 10px;
             position: relative;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease-out; /* Adiciona uma transição suave para as barras */
         }
 
         .bar-value {
@@ -237,6 +243,32 @@
             font-weight: 700;
             font-size: 0.85em;
             white-space: nowrap;
+            opacity: 0; /* Oculta o valor por padrão */
+            transition: opacity 0.3s ease;
+        }
+
+        .bar-body:hover .bar-value {
+            opacity: 1; /* Exibe o valor ao passar o mouse */
+        }
+        
+        .bar-tooltip {
+            position: absolute;
+            background-color: #06402b;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            z-index: 10;
+            white-space: nowrap;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none; /* Garante que o tooltip não bloqueie o mouse */
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .bar-body-container:hover .bar-tooltip {
+            opacity: 1;
         }
     </style>
 </head>
@@ -508,34 +540,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- 1. Mover a seção "Hemodinâmica" e atualizar o total de Valdelice ---
-        const gestorValdelice = document.querySelector('[data-total="44615.46"]');
-        const gestorElizangela = document.querySelector('[data-total="6466.90"]');
-
-        const hemodinamicaHTML = `
-            <ul class="subcategoria-list">
-                <h4>HEMODINAMICA</h4>
-                <div class="mes-valor"><span class="mes">JAN/25:</span> <span class="valor">R$ 8,11</span></div>
-                <div class="mes-valor"><span class="mes">FEV/25:</span> <span class="valor">R$ 3.440,83</span></div>
-                <div class="mes-valor"><span class="mes">MAR/25:</span> <span class="valor">R$ 2.296,79</span></div>
-                <div class="mes-valor"><span class="mes">ABR/25:</span> <span class="valor">R$ 73,42</span></div>
-                <div class="mes-valor"><span class="mes">MAI/25:</span> <span class="valor">R$ 1.196,16</span></div>
-                <div class="mes-valor"><span class="mes">JUN/25:</span> <span class="valor">R$ 1.189,19</span></div>
-                <div class="mes-valor"><span class="mes">JUL/25:</span> <span class="valor">R$ 1.905,07</span></div>
-                <div class="mes-valor"><span class="mes">AGO/25:</span> <span class="valor">R$ 2.022,91</span></div>
-                <div class="mes-valor"><span class="mes">SET/25:</span> <span class="valor">R$ 1.990,39</span></div>
-                <div class="total-setor">Total do Setor: R$ 14.122,37</div>
-            </ul>
-        `;
-        gestorValdelice.insertAdjacentHTML('beforeend', hemodinamicaHTML);
-
-        // Remover a seção de "Hemodinâmica" de Elizangela
-        // A remoção não é necessária se o HTML já estiver organizado como no código acima.
-
-        // --- 2. Reorganizar os cartões por valor total (já feito manualmente no HTML para facilitar) ---
         const container = document.getElementById('gestor-cards-container');
         const gestorCards = Array.from(container.querySelectorAll('.gestor-card'));
 
+        // Reorganizar os cartões com base no valor total
         gestorCards.sort((a, b) => {
             const totalA = parseFloat(a.dataset.total);
             const totalB = parseFloat(b.dataset.total);
@@ -544,7 +552,7 @@
 
         gestorCards.forEach(card => container.appendChild(card));
 
-        // --- 3. Gerar o gráfico de barras dinamicamente ---
+        // Gerar o gráfico de barras dinamicamente
         const chartContainer = document.getElementById('chart-container');
         const gestorData = gestorCards.map(card => {
             return {
@@ -564,11 +572,15 @@
         gestorData.forEach(item => {
             const barWidth = (item.value / maxValue) * 100;
             const formattedValue = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value);
+            
             chartHtml += `
                 <div class="bar-item">
                     <span class="bar-label">${item.name}</span>
-                    <div class="bar-body" style="width: ${barWidth.toFixed(2)}%;">
-                        <span class="bar-value">${formattedValue}</span>
+                    <div class="bar-body-container">
+                        <div class="bar-body" style="width: ${barWidth.toFixed(2)}%;">
+                            <span class="bar-value">${formattedValue}</span>
+                        </div>
+                        <span class="bar-tooltip">${item.name}: ${formattedValue}</span>
                     </div>
                 </div>
             `;
