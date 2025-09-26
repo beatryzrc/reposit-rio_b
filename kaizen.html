@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen e 5S na UNIMED Vitória - Final</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Paleta de Cores Unimed */
+        :root {
+            --unimed-verde-escuro: #00995D;
+            --unimed-verde-claro: #81D348;
+            --unimed-amarelo: #FFF0C7;
+            --unimed-branco: #FFFFFF;
+            --unimed-rosa: #ED1651;
+            --unimed-roxo: #AA328E;
+            --unimed-laranja: #F74F20;
+            --unimed-amarelo-claro: #FFCB08;
+            --unimed-verde-folha: #00401A;
+            --unimed-azul-escuro: #411564;
+            --bg-principal: #FDF9F5;
+            --text-dark: #2C3E50;
+            --text-light: var(--unimed-branco);
+            --accent-green: var(--unimed-verde-escuro);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5%;
+            box-sizing: border-box;
+            scroll-snap-align: start;
+            position: relative;
+            background-color: var(--unimed-branco);
+            overflow: hidden;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .bg-shape {
+            position: absolute;
+            opacity: 0.5;
+            z-index: 1;
+        }
+        .shape-1 {
+            width: 300px; height: 300px; background-color: var(--unimed-verde-claro);
+            border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%; top: -80px; left: -80px; transform: rotate(-35deg);
+        }
+        .shape-2 {
+            width: 400px; height: 400px; background-color: var(--unimed-rosa);
+            border-radius: 60% 40% 40% 60% / 60% 60% 40% 40%; bottom: -100px; right: -100px; transform: rotate(45deg);
+            opacity: 0.3;
+        }
+        .shape-3 {
+            width: 200px; height: 200px; background-color: var(--unimed-azul-escuro);
+            border-radius: 50%; top: 20%; right: -50px; transform: rotate(15deg); opacity: 0.2;
+        }
+        .shape-4 {
+            width: 250px; height: 250px; background-color: var(--unimed-amarelo-claro);
+            border-radius: 50% 50% 30% 70% / 30% 70% 30% 70%; bottom: -50px; left: 10%; transform: rotate(70deg); opacity: 0.4;
+        }
+        
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; margin: 0; }
+        h1 { font-size: 4.5rem; color: var(--accent-green); line-height: 0.9; }
+        .subtitle { font-size: 1.9rem; font-weight: 300; color: var(--text-dark); margin-top: 15px; }
+        .highlight {
+            background-color: var(--unimed-amarelo-claro); color: var(--text-dark);
+            padding: 10px 25px; border-radius: 50px; font-weight: 900;
+            font-size: 1.6rem; display: inline-block; margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h2 { font-size: 2.8rem; color: var(--unimed-verde-folha); margin-bottom: 25px; font-weight: 700; }
+        h3 { font-size: 1.8rem; color: var(--unimed-rosa); margin-bottom: 15px; }
+        p { font-size: 1.2rem; max-width: 900px; line-height: 1.7; margin: 0 auto 15px auto; }
+        
+        .column-layout {
+            display: flex; gap: 50px; text-align: left; width: 100%; align-items: center;
+        }
+        .column-layout .text-area, .column-layout .visual-area { flex: 1; }
+        
+        .data-card {
+            background-color: var(--unimed-branco); padding: 22px; margin-bottom: 22px;
+            border-radius: 10px; border-left: 6px solid var(--unimed-laranja);
+            width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .data-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .data-card .number { font-size: 3.2rem; font-weight: 700; color: var(--unimed-roxo); margin-bottom: 8px; }
+        .data-card .label { font-size: 1.3rem; font-weight: 400; color: var(--text-dark); line-height: 1.4; }
+        
+        .icon-box {
+            background-color: var(--unimed-verde-escuro);
+            border-radius: 15px;
+            padding: 20px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .icon-box svg {
+            color: var(--unimed-branco);
+            width: 60px; height: 60px;
+        }
+        .icon-text {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .list-section ul { list-style: none; padding: 0; text-align: left; margin: 0 auto; max-width: 900px; }
+        .list-section ul li {
+            background-color: var(--unimed-verde-folha); color: var(--text-light);
+            padding: 18px 25px; margin-bottom: 15px; border-radius: 8px;
+            font-size: 1.3rem; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .list-section ul li:hover { transform: translateX(10px); }
+        .list-section ul li::before {
+            content: '✓'; color: var(--unimed-amarelo-claro); font-weight: bold;
+            font-size: 1.8rem; margin-right: 15px;
+        }
+
+        .footer-logo {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            text-align: center; display: none;
+        }
+        .slide#slide-capa .footer-logo, .slide#slide-agradecimento .footer-logo {
+            display: block;
+        }
+        .unimed-logo-svg { width: 160px; height: auto; }
+        .unimed-logo-text { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: #888; margin-top: 5px; display: block;}
+        .fonte {
+            font-size: 0.9rem; color: #777; text-align: center; position: absolute; bottom: 20px; width: 100%;
+        }
+        
+        /* Layout 5S sem setas */
+        .s5-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start; /* Alinhamento ao topo para que todos os cards tenham a mesma base */
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .s5-card {
+            background-color: var(--unimed-branco);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            flex: 1;
+            max-width: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 350px;
+        }
+        .s5-card h3 {
+            color: var(--unimed-verde-escuro);
+            font-size: 1.6rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .s5-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--text-dark);
+        }
+        .s5-icon {
+            display: inline-block;
+            background-color: var(--unimed-verde-escuro);
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3;
+        }
+        .s5-icon svg {
+            color: var(--unimed-branco);
+            width: 45px; height: 45px;
+        }
+
+        /* Cores específicas para cada 5S */
+        .s5-card.seiri { border-top: 6px solid var(--unimed-laranja); }
+        .s5-card.seiri .s5-icon { background-color: var(--unimed-laranja); }
+        .s5-card.seiri h3 { color: var(--unimed-laranja); }
+
+        .s5-card.seiton { border-top: 6px solid var(--unimed-amarelo-claro); }
+        .s5-card.seiton .s5-icon { background-color: var(--unimed-amarelo-claro); }
+        .s5-card.seiton h3 { color: var(--unimed-amarelo-claro); }
+
+        .s5-card.seiso { border-top: 6px solid var(--unimed-roxo); }
+        .s5-card.seiso .s5-icon { background-color: var(--unimed-roxo); }
+        .s5-card.seiso h3 { color: var(--unimed-roxo); }
+
+        .s5-card.seiketsu { border-top: 6px solid var(--unimed-verde-claro); }
+        .s5-card.seiketsu .s5-icon { background-color: var(--unimed-verde-claro); }
+        .s5-card.seiketsu h3 { color: var(--unimed-verde-claro); }
+        
+        .s5-card.shitsuke { border-top: 6px solid var(--unimed-rosa); }
+        .s5-card.shitsuke .s5-icon { background-color: var(--unimed-rosa); }
+        .s5-card.shitsuke h3 { color: var(--unimed-rosa); }
+        .s5-card.shitsuke .s5-icon { background-color: var(--unimed-rosa); }
+        
+        /* Ajustes para o card de percentual do Einstein */
+        .einstein-data-card {
+            background-color: var(--unimed-amarelo);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-left: 8px solid var(--unimed-azul-escuro);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .einstein-data-card .number {
+            font-size: 4rem;
+            color: var(--unimed-azul-escuro);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .einstein-data-card .label {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+            max-width: 80%;
+        }
+        
+        /* Novo layout Desafio */
+        .challenge-section {
+            background-color: var(--unimed-verde-escuro);
+            color: var(--text-light);
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+        }
+        .challenge-section h2 { color: var(--unimed-branco); font-size: 3rem; margin-bottom: 30px; }
+        .challenge-section p { font-size: 1.5rem; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .highlight { font-size: 1rem; padding: 6px 15px; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.3rem; }
+            p { font-size: 0.9rem; }
+            .column-layout { flex-direction: column; gap: 20px; }
+            .column-layout .text-area, .column-layout .visual-area { width: 100%; }
+            .s5-container { flex-direction: column; gap: 20px; }
+            .s5-card { width: 100%; height: auto; padding: 20px; }
+            .s5-card h3 { font-size: 1.2rem; }
+            .s5-card p { font-size: 0.8rem; }
+            .s5-icon svg { width: 35px; height: 35px; }
+            .s5-arrow { display: none; }
+            .challenge-section { padding: 30px; }
+            .challenge-section h2 { font-size: 1.8rem; }
+            .challenge-section p { font-size: 1rem; }
+            .list-section ul li { font-size: 1rem; padding: 12px 15px; }
+            .einstein-data-card .number { font-size: 2.5rem; }
+            .einstein-data-card .label { font-size: 1.1rem; }
+            .footer-logo { display: none !important; }
+            .bg-shape { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="slide" id="slide-capa">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="slide-content">
+            <h1 style="color: var(--unimed-rosa); font-size: 6rem;">Kaizen</h1>
+            <h1 style="font-size: 3.5rem;"><span style="color: var(--unimed-verde-escuro);">GEASI</span></h1>
+            <p class="subtitle" style="font-size: 1.6rem;">Unimed Vitória</p>
+            <div class="highlight">Hoje melhor que ontem, amanhã melhor que hoje</div>
+        </div>
+        <div class="footer-logo">
+            <span style="font-size: 1.1rem; color: var(--text-dark); font-weight: 600;">Unimed Vitória</span>
+            <span class="unimed-logo-text">Somos Coop</span>
+        </div>
+    </section>
+
+    <section class="slide" style="background-color: var(--unimed-amarelo);" id="slide-origem-toyota">
+        <div class="bg-shape shape-4" style="left: -100px; top: 60%; transform: rotate(120deg);"></div>
+        <div class="bg-shape shape-3" style="top: -30px; right: -30px; opacity: 0.4;"></div>
+        <div class="slide-content">
+            <div class="column-layout">
+                <div class="text-area">
+                    <h2>Raízes do Kaizen: A Inovação Toyota</h2>
+                    <p>Kaizen, do japonês <strong>"melhoria contínua"</strong>, é a busca por otimizar processos, eliminar desperdícios e elevar a qualidade. Sua origem está no Sistema Toyota de Produção (TPS), uma filosofia que busca a perfeição e valoriza o conhecimento de cada colaborador.</p>
+                    <p>No setor da saúde, significa ir além do "sempre foi assim". É pensar: "Como podemos fazer isso um pouco melhor, mais seguro e mais eficiente para o nosso paciente?"</p>
+                </div>
+                <div class="visual-area" style="text-align: center; background-color: var(--unimed-branco); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div class="icon-box" style="background-color: var(--unimed-verde-folha);">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9V9h2v8zm4 0h-2V9h2v8zM12 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    </div>
+                    <h3 style="color: var(--unimed-verde-escuro);">A Força da Mudança</h3>
+                    <p style="max-width: none;">A filosofia Kaizen teve origem na indústria, mas seu foco em eficiência e qualidade se aplica a qualquer área, principalmente à saúde.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-5s">
+        <div class="bg-shape shape-3" style="top: -50px; left: 10%; opacity: 0.3; background-color: var(--unimed-verde-claro);"></div>
+        <div class="bg-shape shape-1" style="bottom: -80px; right: 10%; transform: rotate(100deg); opacity: 0.4;"></div>
+        <div class="slide-content">
+            <h2>O Poder do 5S: Um Caminho para a Excelência</h2>
+            <p>O 5S é a base para a melhoria contínua. Cada "S" é um passo simples e poderoso para organizar, padronizar e otimizar nosso ambiente de trabalho, impactando diretamente na qualidade do nosso serviço.</p>
+            <div class="s5-container">
+                <div class="s5-card seiri">
+                    <div class="s5-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9V9h2v8zm4 0h-2V9h2v8zM12 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    </div>
+                    <h3>Seiri<br>Utilização</h3>
+                    <p>Separar o que é essencial do que é desnecessário.</p>
+                </div>
+                <div class="s5-card seiton">
+                    <div class="s5-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                    </div>
+                    <h3>Seiton<br>Organização</h3>
+                    <p>Arrume os itens necessários de forma lógica e acessível.</p>
+                </div>
+                <div class="s5-card seiso">
+                    <div class="s5-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14.5c.83 0 1.5-.67 1.5-1.5S16.33 11.5 15.5 11.5 14 12.17 14 13s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 11.5 8.5 11.5 7 12.17 7 13s.67 1.5 1.5 1.5zm7 4c1.25 0 2.45-.66 3.09-1.63L16 14.71V17h4c.55 0 1 .45 1 1s-.45 1-1 1h-7v-1.75c-.86-1.12-2.12-1.75-3.09-1.75H12c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1h1.5l1.62 1.62c.64.97 1.84 1.63 3.09 1.63zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <h3>Seiso<br>Limpeza</h3>
+                    <p>Manter o ambiente limpo e identificar as fontes de sujeira.</p>
+                </div>
+                <div class="s5-card seiketsu">
+                    <div class="s5-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-4 0c1.66 0 2.99-1.34 2.99-3S13.66 5 12 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-4 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/></svg>
+                    </div>
+                    <h3>Seiketsu<br>Padronização</h3>
+                    <p>Crie normas para manter a organização e a limpeza.</p>
+                </div>
+                <div class="s5-card shitsuke">
+                    <div class="s5-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    </div>
+                    <h3>Shitsuke<br>Disciplina</h3>
+                    <p>Crie o hábito de seguir os padrões.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" style="background-color: var(--unimed-amarelo);" id="slide-virginia-mason">
+        <div class="bg-shape shape-1" style="left: auto; right: -50px; top: -50px; transform: rotate(10deg); opacity: 0.4;"></div>
+        <div class="bg-shape shape-4" style="bottom: -50px; left: -50px; transform: rotate(20deg); opacity: 0.3; background-color: var(--unimed-azul-escuro);"></div>
+        <div class="slide-content">
+            <div class="column-layout">
+                <div class="visual-area">
+                    <div class="data-card" style="border-left: 6px solid var(--unimed-rosa);">
+                        <div class="number">50%</div>
+                        <div class="label">Redução de lesões por queda de pacientes.</div>
+                    </div>
+                    <div class="data-card" style="border-left: 6px solid var(--unimed-rosa);">
+                        <div class="number">80%</div>
+                        <div class="label">Redução no tempo de espera para agendamento de ressonâncias.</div>
+                    </div>
+                </div>
+                <div class="text-area" style="background-color: var(--unimed-branco); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-right: 8px solid var(--unimed-rosa);">
+                    <h2>O Kaizen em Ação: Virginia Mason</h2>
+                    <p>
+                        O <strong>Virginia Mason Medical Center</strong> revolucionou a gestão hospitalar ao adaptar o Sistema Toyota de Produção, focando em eliminar o "muda" (desperdício) para focar 100% no paciente.
+                    </p>
+                    <p>
+                        Redesenharam salas de cirurgia para que todo o material necessário estivesse à mão; ajustaram o fluxo de pacientes para reduzir esperas e implementaram um sistema onde qualquer funcionário podia apontar um erro.
+                    </p>
+                </div>
+            </div>
+            <div class="fonte">Fonte: Womack, J. P., & Jones, D. T. (2003). Lean thinking.</div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-albert-einstein">
+        <div class="bg-shape shape-2" style="bottom: -50px; left: -50px; transform: rotate(-20deg); opacity: 0.3; background-color: var(--unimed-roxo);"></div>
+        <div class="bg-shape shape-1" style="right: -100px; top: -100px; transform: rotate(60deg); opacity: 0.5; background-color: var(--unimed-verde-escuro);"></div>
+        <div class="slide-content">
+            <div class="column-layout">
+                <div class="text-area">
+                    <h2>Kaizen no Brasil: Hospital Albert Einstein</h2>
+                    <p>
+                        A aplicação do Kaizen no Einstein foca em projetos de alta complexidade. Um exemplo notável é a otimização do fluxo de pacientes na emergência, que reduz o tempo de permanência e melhora a agilidade no atendimento.
+                    </p>
+                    <p>
+                        Outro caso de sucesso envolve a jornada do paciente com câncer, onde a metodologia foi usada para simplificar processos de agendamento e tratamento.
+                    </p>
+                </div>
+                <div class="visual-area">
+                    <div class="einstein-data-card">
+                        <div class="icon-box" style="background-color: var(--unimed-azul-escuro);">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM15.5 10c.83 0 1.5-.67 1.5-1.5S16.33 7 15.5 7 14 7.67 14 8.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 7 8.5 7 7 7.67 7 8.5s.67 1.5 1.5 1.5zM12 17.25c-2.48 0-4.5-2.02-4.5-4.5h9c0 2.48-2.02 4.5-4.5 4.5z"/>
+                            </svg>
+                        </div>
+                        <div class="number">40%</div>
+                        <div class="label">Redução no tempo de permanência de pacientes em áreas-chave do hospital.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="fonte">Fonte: Material de estudo interno do Hospital Albert Einstein e publicações da instituição sobre Gestão Lean.</div>
+        </div>
+    </section>
+
+    <section class="slide list-section" style="background-color: var(--unimed-amarelo);" id="slide-onde-aprimorar">
+        <div class="bg-shape shape-4" style="right: -80px; top: -80px; transform: rotate(10deg); opacity: 0.6; background-color: var(--unimed-verde-claro);"></div>
+        <div class="slide-content">
+            <h2>Onde Podemos Aprimorar?</h2>
+            <p>Pense nas pequenas frustrações diárias. Elas são oportunidades de Kaizen!</p>
+            <ul>
+                <li>Reduzir o tempo de espera em consultas ou exames.</li>
+                <li>Otimizar o fluxo de informações entre setores.</li>
+                <li>Melhorar a organização de materiais e equipamentos.</li>
+                <li>Simplificar procedimentos de admissão ou alta de pacientes.</li>
+                <li>Minimizar erros na administração de medicamentos.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide" style="background-color: var(--unimed-verde-escuro);" id="slide-desafio">
+        <div class="bg-shape shape-1" style="opacity: 0.2; background-color: var(--unimed-branco); top: 50%; left: 10%; transform: rotate(20deg);"></div>
+        <div class="bg-shape shape-2" style="opacity: 0.2; background-color: var(--unimed-verde-claro); bottom: 20%; right: 15%; transform: rotate(-40deg);"></div>
+        <div class="slide-content">
+            <div class="challenge-section">
+                <h2>Seu Desafio Kaizen Começa Agora!</h2>
+                <p>
+                    Convidamos você a ser um agente de mudança. Observe, questione e proponha melhorias.
+                </p>
+                <p>
+                    <strong>Identifique:</strong> Uma pequena melhoria em seu setor ou em qualquer processo do hospital.
+                </p>
+                <p style="font-weight: 700; font-size: 1.8rem; margin-top: 40px;">
+                    Sua ideia, nossa evolução. Juntos, somos mais fortes!
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide" style="background-color: var(--unimed-verde-claro);" id="slide-agradecimento">
+        <div class="bg-shape shape-3" style="top: -50px; left: -50px; opacity: 0.6; background-color: var(--unimed-amarelo-claro);"></div>
+        <div class="bg-shape shape-1" style="bottom: -50px; right: -50px; opacity: 0.4; background-color: var(--unimed-rosa);"></div>
+        <div class="slide-content">
+            <h1 style="color: var(--unimed-verde-escuro); border-bottom: 5px solid var(--unimed-rosa); padding-bottom: 10px;">O Futuro da Saúde Começa Com Você.</h1>
+            <p class="subtitle" style="color: var(--unimed-verde-folha);">Com Kaizen, transformamos o cuidado um passo por vez.</p>
+            <p style="font-size: 1.5rem; margin-top: 40px;">Obrigado por sua dedicação a tornar a Unimed Vitória cada vez melhor!</p>
+        </div>
+        <div class="footer-logo">
+            <span style="font-size: 1.1rem; color: var(--text-dark); font-weight: 600;">Unimed Vitória</span>
+            <span class="unimed-logo-text">Somos Coop</span>
+        </div>
+    </section>
+
+</body>
+</html>
